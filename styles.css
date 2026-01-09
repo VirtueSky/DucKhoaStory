@@ -6,13 +6,13 @@
 }
 
 :root {
-    --primary-color: #d4a574;
-    --secondary-color: #8b6914;
-    --accent-color: #e8d5b7;
+    --primary-color: #e91e63;
+    --secondary-color: #c2185b;
+    --accent-color: #fce4ec;
     --text-dark: #333;
     --text-light: #666;
     --white: #fff;
-    --bg-light: #faf8f5;
+    --bg-light: #fff5f8;
 }
 
 html {
@@ -456,17 +456,16 @@ body {
     overflow: hidden;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
+    aspect-ratio: 4/3;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     transition: transform 0.5s ease;
+    cursor: pointer;
 }
 
-.gallery-item:hover img {
-    transform: scale(1.1);
+.gallery-item:hover {
+    transform: scale(1.05);
 }
 
 /* Guestbook Section */
@@ -860,7 +859,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(139, 105, 20, 0.95), rgba(212, 165, 116, 0.95)),
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.9), rgba(252, 228, 236, 0.95)),
                 url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&h=1080&fit=crop') center/cover;
     display: flex;
     align-items: center;
@@ -937,4 +936,116 @@ body {
         padding: 15px 40px;
         font-size: 1rem;
     }
+}
+
+/* Cursor Trail Effect */
+.cursor-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    overflow: hidden;
+}
+
+.cursor-particle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 20px;
+    animation: floatUp 1.5s ease-out forwards;
+    opacity: 1;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(0.3) rotate(45deg);
+    }
+}
+
+/* Sparkle effect */
+.cursor-sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkle 0.8s ease-out forwards;
+}
+
+@keyframes sparkle {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+/* Falling Flowers Effect */
+.falling-flowers {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9997;
+    overflow: hidden;
+}
+
+.flower {
+    position: absolute;
+    top: -50px;
+    animation: fall linear forwards;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 0.9;
+    }
+    25% {
+        transform: translateY(25vh) rotate(90deg) translateX(20px);
+    }
+    50% {
+        transform: translateY(50vh) rotate(180deg) translateX(-20px);
+    }
+    75% {
+        transform: translateY(75vh) rotate(270deg) translateX(20px);
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg) translateX(-20px);
+        opacity: 0.3;
+    }
+}
+
+/* Different sway patterns */
+.flower.sway-1 {
+    animation-name: fall, sway1;
+}
+
+.flower.sway-2 {
+    animation-name: fall, sway2;
+}
+
+@keyframes sway1 {
+    0%, 100% { margin-left: 0; }
+    50% { margin-left: 30px; }
+}
+
+@keyframes sway2 {
+    0%, 100% { margin-left: 0; }
+    50% { margin-left: -30px; }
 }

@@ -117,7 +117,6 @@ guestbookForm.addEventListener('submit', async function(e) {
     // Get form data
     const formData = {
         name: document.getElementById('name').value.trim(),
-        email: document.getElementById('email').value.trim(),
         attending: document.getElementById('attending').value,
         message: document.getElementById('message').value.trim()
     };
@@ -324,3 +323,151 @@ function playMusic() {
         console.log('Autoplay prevented:', error);
     });
 }
+
+
+// ============================================
+// CURSOR TRAIL EFFECT
+// ============================================
+const cursorEffect = document.getElementById('cursorEffect');
+const particles = ['💕', '✨', '💗', '❤️', '💖'];
+let lastTime = 0;
+const throttleDelay = 50; // Tạo particle mỗi 50ms
+
+function createParticle(x, y) {
+    const particle = document.createElement('span');
+    particle.className = 'cursor-particle';
+    particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+    
+    // Random offset
+    const offsetX = (Math.random() - 0.5) * 20;
+    const offsetY = (Math.random() - 0.5) * 20;
+    
+    particle.style.left = (x + offsetX) + 'px';
+    particle.style.top = (y + offsetY) + 'px';
+    particle.style.fontSize = (15 + Math.random() * 15) + 'px';
+    
+    cursorEffect.appendChild(particle);
+    
+    // Remove particle after animation
+    setTimeout(() => {
+        particle.remove();
+    }, 1500);
+}
+
+function createSparkle(x, y) {
+    const sparkle = document.createElement('span');
+    sparkle.className = 'cursor-sparkle';
+    
+    const offsetX = (Math.random() - 0.5) * 30;
+    const offsetY = (Math.random() - 0.5) * 30;
+    
+    sparkle.style.left = (x + offsetX) + 'px';
+    sparkle.style.top = (y + offsetY) + 'px';
+    sparkle.style.background = Math.random() > 0.5 ? '#e91e63' : '#fce4ec';
+    
+    cursorEffect.appendChild(sparkle);
+    
+    setTimeout(() => {
+        sparkle.remove();
+    }, 800);
+}
+
+function handleMove(x, y) {
+    const now = Date.now();
+    if (now - lastTime < throttleDelay) return;
+    lastTime = now;
+    
+    createParticle(x, y);
+    if (Math.random() > 0.5) {
+        createSparkle(x, y);
+    }
+}
+
+// Mouse events
+document.addEventListener('mousemove', (e) => {
+    handleMove(e.clientX, e.clientY);
+});
+
+// Touch events (mobile)
+document.addEventListener('touchmove', (e) => {
+    const touch = e.touches[0];
+    handleMove(touch.clientX, touch.clientY);
+}, { passive: true });
+
+// Click/tap burst effect
+function createBurst(x, y) {
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+            createParticle(x, y);
+            createSparkle(x, y);
+        }, i * 30);
+    }
+}
+
+document.addEventListener('click', (e) => {
+    createBurst(e.clientX, e.clientY);
+});
+
+document.addEventListener('touchstart', (e) => {
+    const touch = e.touches[0];
+    createBurst(touch.clientX, touch.clientY);
+}, { passive: true });
+
+
+// ============================================
+// FALLING FLOWERS EFFECT
+// ============================================
+const fallingFlowers = document.getElementById('fallingFlowers');
+const flowerEmojis = ['🌸', '🌺', '💮', '🏵️', '🌷', '🌹', '💐', '🪷'];
+
+function createFlower() {
+    const flower = document.createElement('span');
+    flower.className = 'flower';
+    flower.textContent = flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)];
+    
+    // Random position
+    flower.style.left = Math.random() * 100 + 'vw';
+    
+    // Random size
+    const size = 15 + Math.random() * 20;
+    flower.style.fontSize = size + 'px';
+    
+    // Random duration (slower = more gentle)
+    const duration = 8 + Math.random() * 7;
+    flower.style.animationDuration = duration + 's';
+    
+    // Random delay
+    flower.style.animationDelay = Math.random() * 2 + 's';
+    
+    // Random sway pattern
+    if (Math.random() > 0.5) {
+        flower.classList.add('sway-1');
+    } else {
+        flower.classList.add('sway-2');
+    }
+    
+    fallingFlowers.appendChild(flower);
+    
+    // Remove flower after animation
+    setTimeout(() => {
+        flower.remove();
+    }, (duration + 2) * 1000);
+}
+
+// Create flowers continuously
+function startFallingFlowers() {
+    // Initial burst
+    for (let i = 0; i < 10; i++) {
+        setTimeout(createFlower, i * 300);
+    }
+    
+    // Continuous flowers
+    setInterval(() => {
+        if (document.visibilityState === 'visible') {
+            createFlower();
+        }
+    }, 800);
+}
+
+// Start when page loads
+startFallingFlowers();
