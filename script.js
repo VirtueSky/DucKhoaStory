@@ -103,7 +103,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ============================================
 
 // THAY ĐỔI URL NÀY BẰNG URL CỦA BẠN
-const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwrpLZGAR-GaBO6mbtMLw200I1L5CZ7EJVdiO51Mp-sTO90RghFO53usuIUJ78TQamnZg/exec';
 
 // Guestbook Form Submission
 const guestbookForm = document.getElementById('guestbook-form');
