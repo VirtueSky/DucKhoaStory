@@ -1,9 +1,9 @@
-// Wedding Date - Change this to your wedding date
-const weddingDate = new Date('2026-02-15T10:00:00').getTime();
+// Wedding Date - Change this to your wedding date (Múi giờ Việt Nam UTC+7)
+const weddingDate = new Date('2026-03-09T10:00:00+07:00').getTime();
 
 // Countdown Timer
 function updateCountdown() {
-    const now = new Date().getTime();
+    const now = Date.now();
     const distance = weddingDate - now;
 
     if (distance < 0) {
