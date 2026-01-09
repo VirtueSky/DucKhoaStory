@@ -7,9 +7,8 @@
 3. Đặt tên các cột ở hàng đầu tiên:
    - A1: `Thời gian`
    - B1: `Họ tên`
-   - C1: `Email`
-   - D1: `Tham dự`
-   - E1: `Lời chúc`
+   - C1: `Tham dự`
+   - D1: `Lời chúc`
 
 ## Bước 2: Tạo Google Apps Script
 
@@ -24,7 +23,6 @@ function doPost(e) {
   sheet.appendRow([
     new Date(),
     data.name,
-    data.email,
     data.attending,
     data.message
   ]);
@@ -45,9 +43,8 @@ function doGet(e) {
       wishes.push({
         timestamp: data[i][0],
         name: data[i][1],
-        email: data[i][2],
-        attending: data[i][3],
-        message: data[i][4]
+        attending: data[i][2],
+        message: data[i][3]
       });
     }
   }
@@ -96,10 +93,10 @@ function doGet(e) {
 
 ## Cấu trúc dữ liệu trong Google Sheet
 
-| Thời gian | Họ tên | Email | Tham dự | Lời chúc |
-|-----------|--------|-------|---------|----------|
-| 01/01/2026 10:00 | Nguyễn Văn A | a@email.com | yes | Chúc mừng hạnh phúc! |
-| 01/01/2026 11:30 | Trần Thị B | | no | Chúc hai bạn trăm năm! |
+| Thời gian | Họ tên | Tham dự | Lời chúc |
+|-----------|--------|---------|----------|
+| 01/01/2026 10:00 | Nguyễn Văn A | yes | Chúc mừng hạnh phúc! |
+| 01/01/2026 11:30 | Trần Thị B | no | Chúc hai bạn trăm năm! |
 
 ## Troubleshooting
 
