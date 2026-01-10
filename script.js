@@ -471,3 +471,92 @@ function startFallingFlowers() {
 
 // Start when page loads
 startFallingFlowers();
+
+
+// ============================================
+// HORIZONTAL SCROLL DRAG
+// ============================================
+const timelineScroll = document.getElementById('timelineScroll');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+timelineScroll.addEventListener('mousedown', (e) => {
+    isDown = true;
+    timelineScroll.style.cursor = 'grabbing';
+    startX = e.pageX - timelineScroll.offsetLeft;
+    scrollLeft = timelineScroll.scrollLeft;
+});
+
+timelineScroll.addEventListener('mouseleave', () => {
+    isDown = false;
+    timelineScroll.style.cursor = 'grab';
+});
+
+timelineScroll.addEventListener('mouseup', () => {
+    isDown = false;
+    timelineScroll.style.cursor = 'grab';
+});
+
+timelineScroll.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - timelineScroll.offsetLeft;
+    const walk = (x - startX) * 2;
+    timelineScroll.scrollLeft = scrollLeft - walk;
+});
+
+
+// ============================================
+// IMAGE LIGHTBOX
+// ============================================
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxClose = document.getElementById('lightboxClose');
+
+// Open lightbox
+function openLightbox(src) {
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close lightbox
+function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Story images click
+document.querySelectorAll('.timeline-images img').forEach(img => {
+    img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLightbox(img.src);
+    });
+});
+
+// Gallery images click
+document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const bgImage = item.style.backgroundImage;
+        const src = bgImage.slice(5, -2); // Remove url(' and ')
+        openLightbox(src);
+    });
+});
+
+// Close on button click
+lightboxClose.addEventListener('click', closeLightbox);
+
+// Close on background click
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+        closeLightbox();
+    }
+});
+
+// Close on ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        closeLightbox();
+    }
+});
