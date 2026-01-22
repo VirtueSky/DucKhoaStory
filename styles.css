@@ -1301,3 +1301,318 @@ body {
 .gallery-item:hover {
     opacity: 0.9;
 }
+
+/* ============================================
+   ADVANCED ANIMATIONS
+   ============================================ */
+
+/* Fade in from bottom */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade in from left */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Fade in from right */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Scale in */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Rotate in */
+@keyframes rotateIn {
+    from {
+        opacity: 0;
+        transform: rotate(-10deg) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(0) scale(1);
+    }
+}
+
+/* Apply animations to elements */
+.animate-on-scroll {
+    opacity: 0;
+}
+
+.animate-on-scroll.animated {
+    animation-duration: 0.8s;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-up { animation-name: fadeInUp; }
+.fade-left { animation-name: fadeInLeft; }
+.fade-right { animation-name: fadeInRight; }
+.scale-in { animation-name: scaleIn; }
+.rotate-in { animation-name: rotateIn; }
+
+/* Stagger animation delays */
+.animate-on-scroll:nth-child(1) { animation-delay: 0.1s; }
+.animate-on-scroll:nth-child(2) { animation-delay: 0.2s; }
+.animate-on-scroll:nth-child(3) { animation-delay: 0.3s; }
+.animate-on-scroll:nth-child(4) { animation-delay: 0.4s; }
+.animate-on-scroll:nth-child(5) { animation-delay: 0.5s; }
+.animate-on-scroll:nth-child(6) { animation-delay: 0.6s; }
+
+/* Floating animation for images */
+@keyframes floating {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.person-image {
+    animation: floating 3s ease-in-out infinite;
+}
+
+.person-image:nth-child(2) {
+    animation-delay: 1.5s;
+}
+
+/* Pulse animation for buttons */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(233, 30, 99, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(233, 30, 99, 0); }
+}
+
+.btn-wish, .btn-direction, .welcome-btn {
+    animation: pulse 2s infinite;
+}
+
+/* Shine effect on hover */
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.timeline-card::before,
+.event-card::before,
+.map-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.timeline-card:hover::before,
+.event-card:hover::before,
+.map-card:hover::before {
+    animation: shine 0.8s;
+}
+
+/* Bounce animation for scroll hint */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.scroll-hint {
+    animation: bounce 2s infinite;
+}
+
+/* Wiggle animation for music button */
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+.music-btn:hover {
+    animation: wiggle 0.5s ease-in-out;
+}
+
+/* Glow effect for section titles */
+@keyframes glow {
+    0%, 100% { text-shadow: 0 0 5px rgba(233, 30, 99, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(233, 30, 99, 0.6), 0 0 30px rgba(233, 30, 99, 0.4); }
+}
+
+.section-title {
+    animation: glow 3s ease-in-out infinite;
+}
+
+/* Parallax effect for hero */
+.hero {
+    background-attachment: fixed;
+    background-position: center;
+}
+
+/* Smooth transitions for all interactive elements */
+.timeline-card,
+.event-card,
+.gallery-item,
+.wish-card,
+.map-card,
+.person-image img {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover lift effect */
+.timeline-card:hover,
+.event-card:hover,
+.map-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Image zoom on hover */
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.timeline-images img:hover {
+    transform: scale(1.05);
+    z-index: 10;
+    position: relative;
+}
+
+/* Ripple effect on click */
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.btn-wish::after,
+.btn-direction::after,
+.btn-submit::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-wish:active::after,
+.btn-direction:active::after,
+.btn-submit:active::after {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+}
+
+/* Text reveal animation */
+@keyframes textReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.couple-names span {
+    display: inline-block;
+    animation: textReveal 1s ease-out;
+}
+
+.groom-name {
+    animation-delay: 0.2s;
+}
+
+.ampersand {
+    animation-delay: 0.4s;
+}
+
+.bride-name {
+    animation-delay: 0.6s;
+}
+
+/* Loading animation for images */
+.timeline-images img,
+.person-image img {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.timeline-images img[src],
+.person-image img[src] {
+    animation: none;
+    background: none;
+}
+
+/* Disable animations on mobile for performance */
+@media (max-width: 768px) {
+    .person-image {
+        animation: none;
+    }
+    
+    .section-title {
+        animation: none;
+    }
+    
+    .btn-wish, .btn-direction, .welcome-btn {
+        animation: none;
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -191,6 +191,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
+                
+                // Add animated class to children
+                var animateElements = entry.target.querySelectorAll('.animate-on-scroll');
+                animateElements.forEach(function(el) {
+                    el.classList.add('animated');
+                });
             }
         });
     }, observerOptions);
